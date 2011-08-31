@@ -1,3 +1,5 @@
+#include <wx/dialog.h>
+
 class ImageMessageBox : public wxDialog {
 
   DECLARE_EVENT_TABLE()

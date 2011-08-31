@@ -1,4 +1,4 @@
-#include "/usr/local/include/usb.h"
+#include "/opt/local/include/usb.h"
 
 enum { SERIAL=1, PARALLEL, USB};
 

@@ -299,10 +299,10 @@ SerialComm::SerialComm(wxString port) {
   this->type = SERIAL;
   if (fd > 0)
     serbb_close(fd);
-  fd = serbb_open((char *)port.c_str());
-  wxLogDebug("got fd = 0x%x", fd);
+  fd = serbb_open((char *)port.char_str());
+    wxLogDebug("got fd = 0x%x", fd);
   if (fd < 0)
-    wxLogDebug("Failed to open port: "+port);
+      wxLogDebug("Failed to open port: %s", (char *)port.char_str());
 
 }
 

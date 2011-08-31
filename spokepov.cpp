@@ -16,6 +16,8 @@
 #include <wx/numdlg.h>
 #include <wx/choice.h>
 #include <wx/dir.h>
+#include <wx/notebook.h>
+#include <wx/button.h>
 
 #include "spokepov.h"
 #include "imagemessagebox.h"
@@ -34,6 +36,10 @@
 #include "resc/parrprobe2.png.h"
 #include "resc/parrprobe4.png.h"
 #include "resc/parrprobe5.png.h"
+
+
+#define wxSAVE wxFD_SAVE
+#define wxOPEN wxFD_OPEN
 
 #define wxGetBitmapFromMemory(name) _wxGetBitmapFromMemory(name ## _png, sizeof(name ## _png))
 
@@ -628,7 +634,7 @@ void SpokePOVFrame::OnTestPort(wxCommandEvent &evt) {
   wxLogDebug("Testing");
   if (commlink == "serial")
     commport = commport_serial;
-  if (commlink == "usb")
+  else if (commlink == "usb")
     commport = "USB";
   else
     commport = commport_parallel;

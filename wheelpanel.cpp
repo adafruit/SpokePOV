@@ -12,6 +12,7 @@
 #include <wx/sizer.h>
 #include <wx/stattext.h>
 #include <wx/msgdlg.h>
+#include <wx/button.h>
 #include "wheelpanel.h"
 #include "globals.h"
 

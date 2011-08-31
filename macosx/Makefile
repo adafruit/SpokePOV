@@ -22,14 +22,16 @@ LDFLAGS_GUI =
 CXX = g++
 #DEBUG = -D__WXDEBUG__
 DEBUGTRUE = no
-CXXFLAGS = -O2 -fno-strict-aliasing -Wall -Wundef -Wno-ctor-dtor-privacy -fno-common
-CPPFLAGS = -DWX_PRECOMP ${DEBUG} -I${top_builddir}lib/wx/include/mac-ansi-release-static-2.6  `/usr/local/bin/wx-config --cxxflags --debug=${DEBUGTRUE}`  -fpascal-strings -I${top_srcdir}/src/mac/carbon/morefilex -I/Developer/Headers/FlatCarbon
-LDFLAGS =  `/usr/local/bin/wx-config --libs` -L/opt/local/lib -lusb
+#ARCH_FLAGS = "-arch i386"
+#ARCH_FLAGS = ""
+CXXFLAGS = ${ARCH_FLAGS} -O2 -fno-strict-aliasing -Wall -Wundef -Wno-ctor-dtor-privacy -fno-common
+CPPFLAGS = ${ARCH_FLAGS} -DWX_PRECOMP ${DEBUG} -I/opt/local/include -lusb -I${top_builddir}lib/wx/include/osx_cocoa-unicode-2.9  `/opt/local/bin/wx-config --cxxflags --debug=${DEBUGTRUE}`  -fpascal-strings -I${top_srcdir}/src/mac/carbon/morefilex -I/Developer/Headers/FlatCarbon 
+LDFLAGS =  `/opt/local/bin/wx-config --libs` -L/opt/local/include -lusb
 WX_LIB_FLAVOUR = 
 TOOLKIT = MAC
-TOOLKIT_LOWERCASE = mac
+TOOLKIT_LOWERCASE = osx_cocoa
 TOOLKIT_VERSION = 
-TOOLCHAIN_FULLNAME = mac-ansi-release-static-2.6
+TOOLCHAIN_FULLNAME = mac-ansi-release-static-2.9
 EXTRALIBS =  
 EXTRALIBS_GUI = -framework WebKit
 EXTRALIBS_SDL = 
@@ -40,7 +42,7 @@ SAMPLES_RPATH_POSTLINK =
 ### Variables: ###
 
 DESTDIR = 
-WX_RELEASE = 2.6
+WX_RELEASE = 2.9
 WX_VERSION = $(WX_RELEASE).3
 LIBDIRNAME = $(top_builddir)lib
 SPOKEPOV_CXXFLAGS = -D__WX$(TOOLKIT)__ ${DEBUG} $(__WXUNIV_DEFINE_p) \
@@ -58,10 +60,10 @@ CXXC = $(top_builddir)./bk-deps $(CXX)
 PLUGIN_ADV_EXTRALIBS = $(EXTRALIBS_SDL)
 #PORTNAME = base
 PORTNAME = $(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)
-WXBASEPORT = _carbon
+WXBASEPORT = 
 #WXDEBUGFLAG = d
 #WXDEBUGFLAG = d
-#WXUNICODEFLAG = u
+WXUNICODEFLAG = u
 #WXUNIVNAME = univ
 EXTRALIBS_FOR_BASE = $(EXTRALIBS)
 #EXTRALIBS_FOR_BASE = $(EXTRALIBS) $(EXTRALIBS_GUI)
@@ -99,9 +101,9 @@ __spokepov_bundle___depname = spokepov_bundle
 #	splash.app/Contents/PkgInfo
 ____spokepov_BUNDLE_TGT_REF_DEP = \
 	spokepov.app/Contents/PkgInfo
-COND_MONOLITHIC_0___WXLIB_MEDIA_p = \
-	-lwx_$(PORTNAME)$(WXUNIVNAME)$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)_media-$(WX_RELEASE)$(HOST_SUFFIX)
-__WXLIB_MEDIA_p = $(COND_MONOLITHIC_0___WXLIB_MEDIA_p)
+#COND_MONOLITHIC_0___WXLIB_MEDIA_p = \
+#	-lwx_$(PORTNAME)$(WXUNIVNAME)$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)_media-$(WX_RELEASE)$(HOST_SUFFIX)
+#__WXLIB_MEDIA_p = $(COND_MONOLITHIC_0___WXLIB_MEDIA_p)
 COND_MONOLITHIC_0___WXLIB_ADV_p = \
 	-lwx_$(PORTNAME)$(WXUNIVNAME)$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)_adv-$(WX_RELEASE)$(HOST_SUFFIX)
 __WXLIB_ADV_p = $(COND_MONOLITHIC_0___WXLIB_ADV_p)
@@ -115,15 +117,15 @@ __WXLIB_BASE_p = $(COND_MONOLITHIC_0___WXLIB_BASE_p)
 COND_MONOLITHIC_1___WXLIB_MONO_p = \
 	-lwx_$(PORTNAME)$(WXUNIVNAME)$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
 #__WXLIB_MONO_p = $(COND_MONOLITHIC_1___WXLIB_MONO_p)
-__LIB_TIFF_p \
-	= \
-	-lwxtiff$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
-__LIB_JPEG_p \
-	= \
-	-lwxjpeg$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
-__LIB_PNG_p \
-	= \
-	-lwxpng$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
+#__LIB_TIFF_p \
+#	= \
+#	-lwxtiff$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
+#__LIB_JPEG_p \
+	#= \
+	#-lwxjpeg$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
+#__LIB_PNG_p \
+	#= \
+	#-lwxpng$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
 #__LIB_ZLIB_p = \
 #	-lwxzlib$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
 #__LIB_ODBC_p = \
@@ -131,8 +133,8 @@ __LIB_PNG_p \
 COND_WXUSE_REGEX_BUILTIN___LIB_REGEX_p = \
 	-lwxregex$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
 #__LIB_REGEX_p = $(COND_WXUSE_REGEX_BUILTIN___LIB_REGEX_p)
-__LIB_EXPAT_p = \
-	-lwxexpat$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
+#__LIB_EXPAT_p = \
+	#-lwxexpat$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
 COND_TOOLKIT_MAC___MACOSX_RESOURCES_p_1 = $(REZ) -d __DARWIN__ -t APPL -d \
 	__WX$(TOOLKIT)__ $(__WXUNIV_DEFINE_p_1) $(__EXCEPTIONS_DEFINE_p_1) \
 	$(__RTTI_DEFINE_p_1) $(__THREAD_DEFINE_p_1) -i $(srcdir) $(__DLLFLAG_p_1) -i \
@@ -205,7 +207,8 @@ data:
 	$(CXXC) -c -o $@ $(SPOKEPOV_CXXFLAGS) $<
 
 spokepov_rc.o: $(srcdir)/sample.rc
-	$(WINDRES) -i$< -o$@   --define __WX$(TOOLKIT)__ $(__WXUNIV_DEFINE_p_2)  $(__EXCEPTIONS_DEFINE_p_2) $(__RTTI_DEFINE_p_2) $(__THREAD_DEFINE_p_2)   --include-dir $(srcdir) $(__DLLFLAG_p_2) --include-dir $(__RCDEFDIR_p_1) --include-dir $(top_srcdir)/include --include-dir /Users/ladyada/Desktop/wxMac-2.6.3/osxbuild/include
+#	$(WINDRES) -i$< -o$@   --define __WX$(TOOLKIT)__ $(__WXUNIV_DEFINE_p_2)  $(__EXCEPTIONS_DEFINE_p_2) $(__RTTI_DEFINE_p_2) $(__THREAD_DEFINE_p_2)   --include-dir $(srcdir) $(__DLLFLAG_p_2) --include-dir $(__RCDEFDIR_p_1) --include-dir $(top_srcdir)/include --include-dir /opt/local/include/wx-2.8/wx
+	$(WINDRES) -i$< -o$@   --define __WX$(TOOLKIT)__ $(__WXUNIV_DEFINE_p_2)  $(__EXCEPTIONS_DEFINE_p_2) $(__RTTI_DEFINE_p_2) $(__THREAD_DEFINE_p_2)   --include-dir $(srcdir) $(__DLLFLAG_p_2) --include-dir $(__RCDEFDIR_p_1) --include-dir $(top_srcdir)/include --include-dir /Users/ladyada/Desktop/wxMac-2.8.8/osxbuild/include
 
 
 
